@@ -1,12 +1,16 @@
 import React,{useEffect} from 'react'
 import {useSelector,useDispatch } from 'react-redux';
-import {addUser} from '../redux/actionCreators'
+import {addUser,setUserView} from '../redux/actionCreators'
 
 const SearchResult = () =>{ 
     const searchResult = useSelector(state => state.searchResult)
     const {user}=searchResult
     const {name,login,followers,following,public_repos,avatar_url}=user
-    const dispatch=useDispatch();
+    const addToViewed = useSelector(state => state.addToViewed)
+    const {viewed}=addToViewed
+    console.log("viewed ",viewed)
+    // console.log('user view ',userView)
+    const dispatch = useDispatch();
     useEffect(() => {
         setTimeout(() => {
             if(user){
@@ -16,7 +20,15 @@ const SearchResult = () =>{
         return () => {
            // cleanup
         }
-    }, [user])
+    }, [user,viewed])
+    if(viewed!==[]){
+        setTimeout(() => {
+            const searchUser=viewed.pop()
+            console.log('last user ',searchUser)
+            dispatch(setUserView(searchUser));
+            // alert(searchUser+" is added to user view");
+        }, 5000);
+    }
     return(
         <div className="search-result">
             <div className="user-image">

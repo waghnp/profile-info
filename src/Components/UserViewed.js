@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {useSelector,useDispatch} from 'react-redux';
-import { setUserView,deleteUser } from '../redux/actionCreators';
+import { deleteUser } from '../redux/actionCreators';
 import { Button } from 'semantic-ui-react';
 
 
@@ -8,15 +8,12 @@ const UserViewed=()=>{
     // const [userView,setUserView]=useState([]);
     const addToViewed = useSelector(state => state.addToViewed)
     const {viewed}=addToViewed
-    console.log("viewed ",viewed)
-    // console.log('user view ',userView)
+    // console.log("viewed ",viewed)
+    // // console.log('user view ',userView)
     const setUserViewed=useSelector(state => state.setUserViewed)
     const {userView}=setUserViewed
     const dispatch = useDispatch();
     useEffect(() => {   
-            const searchUser=viewed.pop()
-            console.log('last user ',searchUser)
-            dispatch(setUserView(searchUser));
         return () => {
             //cleanup
         }
